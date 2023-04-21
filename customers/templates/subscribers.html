@@ -1,0 +1,27 @@
+{% extends 'admin.html' %}
+{% block contentarea %}
+<script>
+    document.title = "Subscribers"
+</script>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Subscriber Email</th>
+                <th>Joining Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for subscriber in subscribers%}
+            <tr>
+                <td>{{subscriber.customer_mail}}</td>
+                <td>{{subscriber.joining_date}}</td>
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock contentarea %}

@@ -1,0 +1,32 @@
+{% extends 'master.html' %}
+{% block contentarea %}
+
+<div>
+
+    <h2>Cart</h2>
+
+</div>
+<div>
+    <div class="card-group">
+    {%for cloth in clothes%}
+    <div class="card" style="border: solid 5px; border-color:white;max-width: 30%;">
+        <div class="card-header" style="background-image: url('/media/{{cloth.product_id.photo1}}');height:300px;background-size: cover;">
+        </div>
+        <div class="card-body">
+            <p><strong>{{cloth.name}}</strong></p>
+            <p>{{cloth.product_id.description | slice:"0:17"}}</p>
+        </div>
+        <div class="card-footer">
+            <a href="/clothes/{{cloth.product_id.id}}/buy"><button class="btn btn-primary">Buy Now</button></a>
+            <form action="/clothes/{{cloth.product_id.id}}/remove-from-cart" method="post" style="display: inline;">
+                {%csrf_token%}
+                <button class="btn btn-outline-success" type="submit">Remove from cart</button>
+            </form>
+        </div>
+    </div>
+    {%endfor%}
+</div>
+</div>
+
+
+{% endblock contentarea %}

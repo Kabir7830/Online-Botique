@@ -1,0 +1,152 @@
+{% extends 'admin.html' %}
+
+{% block contentarea %}
+{%if request.user.is_superuser%}
+<script>
+    document.title = "Edit Cloth"
+</script>
+<style>
+    input,select,textarea{
+        max-width: 60%;
+        border-radius: 20px !important;
+    }
+</style>
+<form method="post" enctype="multipart/form-data" style="margin-left: 10%;" >
+    {%csrf_token%}
+        <div style="width:50%;float: left;">
+            <div class="form-group">
+                <label for="">Suit Name</label>
+                <input type="text" class="form-control" name="name" placeholder="" id=""  value="{{cloth.name}}">
+            </div>
+            <div class="form-group">
+                <label for="">Manufacturer Name</label>
+                <input type="text" class="form-control" name="company" placeholder="" id=""  value="{{cloth.company}}">
+            </div>
+            <div class="form-group">
+                <label for="">Size</label>
+                <input type="text" class="form-control" name="size" placeholder="" id=""  value="{{cloth.size}}">
+            </div>
+            <div class="form-group">
+                <label for="">Pic 1</label>
+                <input type="file" class="form-control" name="photo1" placeholder="" id="" >
+            </div>
+            <div class="form-group">
+                <label for="">Pic 2</label>
+                <input type="file" class="form-control" name="photo2" placeholder="" id="" >
+            </div>
+            <div class="form-group">
+                <label for="">Pic 3</label>
+                <input type="file" class="form-control" name="photo3" placeholder="" id="" >
+            </div>
+            <div class="form-group">
+                <label for="">Pic 4</label>
+                <input type="file" class="form-control" name="photo4" placeholder="" id="" >
+            </div>
+           
+            <div class="form-group">
+                <label for="">Category</label>
+                <select class="form-control" name="cloth_category" placeholder="" id="" >
+                    {%for category in clothes_categories%}
+                    {% if cloth.category_id.id == category.id %}
+                    <option value="{{category.id}}" selected>{{category.category_name}}</option>
+                    {% else %}
+                    <option value="{{category.id}}">{{category.category_name}}</option>
+                    {% endif %}
+                    {%endfor%}
+                </select>
+            </div>
+        </div>
+        <div style="width: 50%;float: right;">
+            <div class="form-group">
+                <label for="">Price</label> (₹)
+                <input type="text" class="form-control" name="price" placeholder="" id=""  value="{{cloth.price}}">
+            </div>
+            <div class="form-group">
+                <label for="">Color</label>
+                <input type="text" class="form-control" name="color" placeholder="" id=""  value="{{cloth.color}}">
+            </div>
+            <div class="form-group">
+                <label for="">Material</label>
+                <input type="text" class="form-control" name="material" placeholder="" id=""  value="{{cloth.material}}">
+            </div>
+            <div class="form-group">
+                <label for="">Description</label>
+                <textarea class="form-control" name="description" placeholder="" id="" cols="20" rows="7" >{{cloth.description}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="">Pic 5</label>
+                <input type="file" class="form-control" name="photo5" placeholder="" id="" >
+            </div>
+            <div class="form-group">
+                <label for="">Pic 6</label>
+                <input type="file" class="form-control" name="photo6" placeholder="" id="" >
+            </div>
+        </div>
+        <div style="clear: both;width: 80%;text-align: center;margin-top: 20%;">
+
+            <button class="btn btn-primary" type="subimit">Create</button>
+        </div>
+        <div style="display: flex;margin-top: 100px; max-width: 100%;justify-content: space-evenly;float: left;">
+            <h3>
+                Preview Images
+            </h3>
+            <br>
+            <div>
+                <img src="/media/{{cloth.photo1}}" alt="image" style="width: 200px;">
+                <br>
+                <label for="">Pic 1</label>
+            </div>
+            {%if cloth.photo2 %}
+            <div>
+                <img src="/media/{{cloth.photo2}}" alt="image" style="width: 200px;">
+                <br>
+                <label for="">Pic 2</label>
+            </div>
+            {%endif%}
+            {%if cloth.photo3 %}
+
+            <div>
+                <img src="/media/{{cloth.photo3}}" alt="image" style="width: 200px;">
+                <br>
+                <label for="">Pic 3</label>
+            </div>
+            {%endif%}
+            {%if cloth.photo4 %}
+
+            <div>
+                <img src="/media/{{cloth.photo4}}" alt="image" style="width: 200px;">
+                <br>
+                <label for="">Pic 4</label>
+            </div>
+            {%endif%}
+            {%if cloth.photo5 %}
+
+            <div>
+                <img src="/media/{{cloth.photo5}}" alt="image" style="width: 200px;">
+                <br>
+                <label for="">Pic 5</label>
+            </div>
+            {%endif%}
+            {%if cloth.photo6 %}
+
+            <div>
+                <img src="/media/{{cloth.photo6}}" alt="image" style="width: 200px;">
+                <br>
+                <label for="">Pic 6</label>
+            </div>
+            {%endif%}
+        </div>
+    </form>
+    <script>
+        document.getElementById('new_clothes').classList.add('btn-primary');
+        document.getElementById('new_category').classList.remove('btn-primary');
+    </script>
+</div>
+{%else%}
+<div style="text-align: center;">
+    <h2>Error</h2>
+</div>
+{%endif%}
+{% endblock contentarea %}
+
+

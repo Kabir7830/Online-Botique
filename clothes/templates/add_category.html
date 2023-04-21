@@ -1,0 +1,31 @@
+{% extends 'admin.html' %}
+{% block contentarea %}
+
+<script>
+    document.title = "Add Category";
+
+</script>
+<style>
+    input {
+        max-width: 60%;
+        border-radius: 20px !important;
+    }
+</style>
+{%if request.user.is_superuser%}
+<div style="width: 100%; display: flex; justify-content: center;">
+    <form action="" method="post" style="width: 50%;">
+        {%csrf_token%}
+        <div class="form-group">
+            <label for="">Category Name</label>
+            <input type="text" class="form-control" name="category_name" id="id_category_name">
+        </div>
+        <button class="btn btn-success" style="border-radius: 20px;">Create</button>
+    </form>
+</div>
+<script>
+    document.getElementById('new_clothes').classList.remove('btn-primary');
+    document.getElementById('new_category').classList.add('btn-primary');
+</script>
+{%endif%}
+
+{% endblock contentarea %}

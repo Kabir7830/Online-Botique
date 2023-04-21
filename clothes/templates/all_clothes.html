@@ -1,0 +1,47 @@
+{% extends 'admin.html' %}
+{% block contentarea %}
+{%load static%}
+<script>
+    document.title = "All Clothes";
+</script>
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Product ID</td>
+                <td>Product Image</td>
+                <td>Product Name</td>
+                <td>Product Price</td>
+                <td>Manufacturer Name</td>
+                <td>Material</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tbody>
+            {%for cloth in clothes%}
+            <tr>
+
+                <td>{{cloth.id}}</td>
+                <td><img src="/media/{{cloth.photo1}}" alt="pic" width="80px"></td>
+                <td>{{cloth.name}}</td>
+                <td>{{cloth.price}}</td>
+                <td>{{cloth.company}}</td>
+                <td>{{cloth.material}}</td>
+                <td><a href="/admin/clothes/{{cloth.id}}/edit"><button class="btn btn-success">Edit</button></a></td>
+                <td>
+                    <form action="/admin/clothes/{{cloth.id}}/delete" method="POST">
+                        {%csrf_token%}
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+                {%endfor%}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.getElementById('all_clothes').classList.add('btn-primary')
+</script>
+{% endblock contentarea %}

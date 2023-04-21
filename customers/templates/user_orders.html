@@ -1,0 +1,37 @@
+{% extends 'master.html' %}
+{% block contentarea %}
+<script>
+    document.title = "Orders";
+</script>
+<div>
+    <table class="table table-striped ">
+        <thead>
+            <tr>
+                <td><strong>Product Name</strong></td>
+                <td><strong>Product Price</strong></td>
+                <td><strong>Size</strong></td>
+                <td><strong>Quantity</strong></td>
+
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {%for order in orders%}
+            <tr>
+                <td>{{order.product_id.name}}</td>
+                <td>₹{{order.product_id.price}}</td>
+                <td>₹{{order.size}}</td>
+                <td>₹{{order.quantity}}</td>
+                
+            </tr0>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.getElementById('id_orders').classList.add('btn-primary');
+</script>
+
+{% endblock contentarea %}

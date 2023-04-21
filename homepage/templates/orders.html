@@ -1,0 +1,53 @@
+{% extends 'admin.html' %}
+{% block contentarea %}
+<script>
+    document.title = "Orders";
+</script>
+<div>
+    <table class="table table-striped table-primary">
+        <thead>
+            <tr>
+                <td>Product ID</td>
+                <td>Product Name</td>
+                <td>Product Price</td>
+                <td>Customer Email</td>
+                <td>Customer Name</td>
+                <td>status</td>
+                <td></td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {%for order in orders%}
+            <tr>
+                <td>{{order.product_id.id}}</td>
+                <td>{{order.product_id.name}}</td>
+                <td>₹{{order.product_id.price}}</td>
+                <td>{{order.customer_id.email}}</td>
+                <td>{{order.customer_id.first_name}} {{order.customer_id.last_name}}</td>
+                {%if order.is_ordered == True%}
+                <td>✔️</td>
+                {%else%}
+                <td>
+                    <form action="/admin/orders/{{order.id}}" method="post">
+                        {%csrf_token%}
+                        <button class="btn btn-primary" type="submit">Mark as Ordered</button></td>
+                    </form>
+                {%endif%}
+                <td>
+                    <form action="/admin/orders/{{order.id}}/delete" method="post">
+                        {%csrf_token%}
+                        <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr0>
+            {%endfor%}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.getElementById('id_orders').classList.add('btn-primary');
+</script>
+
+{% endblock contentarea %}

@@ -1,0 +1,128 @@
+{%extends 'master.html' %}
+{%block contentarea%}
+<script>
+    document.title = "Buy Now | FABHUT"
+</script>
+<style>
+    .buy_now_div{
+        animation: showdiv 1s;
+    }
+    .hide_buy_now_div{
+        animation: hidediv 1s;
+    }
+    @keyframes showdiv {
+        0% {opacity: 0;}
+        100%{opacity: 1;}
+    }
+    @keyframes hidediv {
+        0% {opacity: 1;}
+        100%{opacity: 0;}
+    }
+    input,select{
+        max-width: 50%;
+        border-radius: 20px !important;
+    }
+</style>
+
+<div>
+    <div id="carouselExample" class="carousel slide" style="max-width: 30%;border: solid 1px black;float: left;">
+        <div class="carousel-inner">
+            <div class="carousel-item active " >
+                <img src="/media/{{product.photo1}}" class="d-block" alt="..."  style="height: 30em;margin-left: -30%;">
+            </div>
+            {%for photo in photos %}
+            {%if photo %}
+            
+          <div class="carousel-item" >
+            <img src="/media/{{photo}}" class="d-block" alt="..." style="height: 30em;margin-left: -30%;">
+          </div>
+          {%endif%}
+          {%endfor%}
+          
+        </div>
+        <button class="carousel-control-prev" type="button" data-target="#carouselExample" data-slide="prev" style="background-color: transparent;border: none;color: black;cursor: pointer;">
+         
+          <span class="visually-hidden" style="font-size: xx-large;cursor: pointer;"><</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-target="#carouselExample" data-slide="next" style="background-color: transparent;border: none;color: black;cursor: pointer;">
+          
+          <span class="visually-hidden" style="font-size: xx-large;cursor: pointer;">></span>
+        </button>
+      </div>
+
+      <div style="max-width: 65%; float: right;margin-right: 20px;height:30em;display: flex; flex-direction: column;">
+        
+        <div style="display: flex;flex-direction: column;height: 30em;"><h2>{{product.name}}</h2>
+
+                <br><br>
+                <button class="btn btn-primary" style="cursor: text;max-width: 30%;"  type="button"><strong style="font-size: x-large;">₹ {{product.price}}</strong></button>
+                <br><br>
+                <div>
+
+                    <form action="/clothes/{{product.id}}/add-to-cart" method="post">
+                        <button class="btn btn-primary" style="max-width: 15%;display: inline;" type="button" id="buy_now_btn">Buy Now</button></a>
+                        {%csrf_token%}
+                        <button class="btn btn-danger" style="max-width: 15%; display: inline;" type="submit">Add To Cart</button></a>
+                    </form>
+                </div>
+
+        </div>
+
+        <p style="text-align: justify;"><strong style="font-size: large;">Description</strong><br>{{product.description | safe}}</p>
+      </div>
+      
+
+      <div style="clear: both;display: none;" id="buy_now_div" >
+        <form action="/clothes/{{product.id}}/purchase" method="post">
+            {%csrf_token%}
+            <div class="form-group">
+                <label for="">Phone Number</label>
+                <input type="text" maxlength="10" name="phone_number" class="form-control" required>
+            </div>
+           
+            <div class="form-group">
+                <label for="">Size</label>
+                <select type="text" maxlength="10" name="size" class="form-control" required>
+                    <option value="small">Small</option>
+                    <option value="medium">medium</option>
+                    <option value="large">large</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                    <option value="3XL">3XL</option>
+                    <option value="4XL">34X</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="">Quantity</label>
+                <input type="number" maxlength="2" name="quantity" class="form-control" style="max-width: 5%;" value="1" required>
+            </div>
+            <button class="btn btn-primary">Order</button>
+            <button class="btn btn-danger" style="max-width: 15%;" type="button" id="cancel_now_btn">Cancel</button></a>
+
+        </form>
+        <br><br><br>
+      </div>
+      <script>
+        document.getElementById('buy_now_btn').addEventListener('click',()=>{
+            document.getElementById('buy_now_div').style.display = "";
+            document.getElementById('buy_now_div').classList.remove("hide_buy_now_div");
+            document.getElementById('buy_now_div').classList.add("buy_now_div");
+            document.getElementById('buy_now_btn').style.display = "none"
+            
+        })
+        document.getElementById('cancel_now_btn').addEventListener('click',()=>{
+            document.getElementById('buy_now_div').classList.remove("buy_now_div");
+            document.getElementById('buy_now_div').classList.add("hide_buy_now_div");
+            document.getElementById('buy_now_btn').style.display = ""
+            setTimeout(() => {
+                
+                document.getElementById('buy_now_div').style.display = "none";
+            }, 1000);
+
+
+        })
+      </script>
+</div>
+
+
+{%endblock contentarea%}

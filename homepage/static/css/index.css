@@ -1,0 +1,41 @@
+.top-nav-div{
+    width: 100%;
+    background-color: rgb(252, 206, 0);
+    height: 10%;
+    text-align: center;
+    color: black;
+    
+
+}
+
+ a{
+    color: black !important;
+}
+
+ a:hover{
+    color:rgb(190, 146, 0) !important;
+    text-decoration: underline !important;
+}
+.dress-group{
+    width: 100%;
+    margin-left: 2%;
+}
+
+.cloth-types{
+    clear: both;
+    max-width: 100%;
+    display: flex;
+    justify-content:space-evenly;
+}
+.cloth-types div img{
+    cursor: pointer;
+}
+
+.card,.card-footer{
+    border:none;
+}
+.card-footer{
+    background-color: transparent;
+    margin-top: -20px;
+    margin-left: 10px;
+}
